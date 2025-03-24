@@ -1,0 +1,108 @@
+﻿@model IEnumerable<AJGR20250324S1.AppWebMVC.Models.Cliente>
+
+@{
+    ViewData["Title"] = "Buscar clientes";
+	var modelBuscar = new Cliente();
+}
+
+<h1>Buscar clientes</h1>
+
+<form asp-action="Index">
+    <div class="row">
+        <div class="form-group col-4">
+            <label asp-for="@modelBuscar.Nombre" class="control-label"></label>
+            <input name="nombre" class="form-control" />
+        </div>
+        <div class="form-group col-3">
+            <label asp-for="@modelBuscar.Telefono" class="control-label"></label>
+            <input name="Telefono" class="form-control" />
+        </div>
+        <div class="form-group col-4">
+            <label asp-for="@modelBuscar.Email" class="control-label"></label>
+            <input name="email" class="form-control" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-3">
+            <label>Cant. Reg</label>
+            <select name="topRegistro" class="form-control">
+                <option value="10">10</option>
+                <option value="15">15</option>
+		        <option value="25">25</option>
+                <option value="35">35</option>
+                <option value="50">50</option>
+                <option value="0">Todos</option>
+            </select>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="form-group mb-3">
+            <input type="submit" value="Buscar" class="btn btn-primary" />
+            <a asp-action="Create" class="btn btn-dark"><i class="bi bi-plus-square"></i>  Crear</a>
+        </div>
+    </div>
+</form>
+<table class="table" id="myTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Direccion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Telefono)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Direccion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Telefono)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+               <table>
+                  <tr>
+                     <td>
+								<a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary" title="Editar"><i class="bi bi-pencil-square"></i></a>
+                     </td>
+                     <td>
+								<a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info" title="Detalles"><i class="bi bi-zoom-in"></i></a>
+                     </td>
+				     <td>
+								<a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger" title="Eliminar"><i class="bi bi-trash3"></i></a>
+                     </td>
+                  </tr>
+               </table>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable({
+                 "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+                }
+            });           
+        });
+    </script>
+
+}
